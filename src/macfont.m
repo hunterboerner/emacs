@@ -2904,7 +2904,11 @@ macfont_draw (struct glyph_string *s, int from, int to, int x, int y,
         {
           CGContextSetFont (context, macfont_info->cgfont);
           CGContextSetFontSize (context, font_size);
+          int savedFontSmoothingStyle = 0;
+          savedFontSmoothingStyle = CGContextGetFontSmoothingStyle(context);
+          CGContextSetFontSmoothingStyle(context, 16);
           CGContextShowGlyphsAtPositions (context, glyphs, positions, len);
+          CGContextSetFontSmoothingStyle(context, savedFontSmoothingStyle);
         }
     }
 

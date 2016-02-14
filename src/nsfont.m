@@ -1263,7 +1263,11 @@ nsfont_draw (struct glyph_string *s, int from, int to, int x, int y,
         [bgCol set];
         CGContextSetTextDrawingMode (gcontext, kCGTextFillStroke);
         CGContextSetTextPosition (gcontext, r.origin.x, r.origin.y);
+        int savedFontSmoothingStyle = 0;
+        savedFontSmoothingStyle = CGContextGetFontSmoothingStyle(gcontext);
+        CGContextSetFontSmoothingStyle(gcontext, 16);
         CGContextShowGlyphsWithAdvances (gcontext, s->char2b, advances, len);
+        CGContextSetFontSmoothingStyle(gcontext, savedFontSmoothingStyle);
         CGContextSetTextDrawingMode (gcontext, kCGTextFill);
       }
 
